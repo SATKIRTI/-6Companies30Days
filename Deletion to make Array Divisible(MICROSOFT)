@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int gcd(int n1, int n2)
+    {
+        if (n2 == 0)
+           return n1;
+        return gcd(n2,n1%n2);
+    }
+    int fun(vector<int>& num_num, vector<int>& numDivide_numDivide)
+    {
+        int ans=0;
+        for(auto i:numDivide_numDivide)
+        {
+            ans=gcd(ans,i);
+        }
+        for(int i=0;i<num_num.size();i++)
+        {
+            if(ans%num_num[i]==0)
+                return i;
+        }
+        return -1;
+    }
+    int minOperations(vector<int>& num_num, vector<int>& numDivide_numDivide) {
+        sort(num_num.begin(),num_num.end());
+        return fun(num_num,numDivide_numDivide);
+    }
+};
