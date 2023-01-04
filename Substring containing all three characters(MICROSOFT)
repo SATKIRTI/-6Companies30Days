@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        vector<vector<int>> abc(3);
+        int ans(0);
+		
+		// record indices
+        for (int i = 0; i < s.length(); ++i)
+            abc[s[i] - 'a'].push_back(i);
+        
+		for (int i = 0; i < s.length(); ++i) {
+			// find other 2 letters given s[i]
+            int x((s[i] - 'a' + 1) % 3), y((s[i] - 'a' + 2) % 3);
+			// search the min index of two letters
+            vector<int>::iterator lx(lower_bound(abc[x].begin(), abc[x].end(), i + 1)), ly(lower_bound(abc[y].begin(), abc[y].end(), i + 1));
+			// if both found, increment the answer
+            if (lx != abc[x].end() && ly != abc[y].end())
+                ans += s.length() - max(*lx, *ly);
+        }
+        return ans;
+    }
+};
+
+
+// Time Complexity: O(n lgn)
+	// Space Complexity: O(n)
